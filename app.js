@@ -1,5 +1,5 @@
 'use strict';
-const messages = require('./controllers/messages');
+const constroller = require('./controller');
 const compress = require('koa-compress');
 const logger = require('koa-logger');
 const serve = require('koa-static');
@@ -11,12 +11,10 @@ const app = module.exports = koa();
 // Logger
 app.use(logger());
 
-app.use(route.get('/', messages.home));
-app.use(route.get('/messages', messages.list));
-app.use(route.get('/messages/:id', messages.fetch));
-app.use(route.post('/messages', messages.create));
-app.use(route.get('/async', messages.delay));
-app.use(route.get('/promise', messages.promise));
+app.use(route.get('/', constroller.home));
+app.use(route.get('/messages', constroller.list));
+app.use(route.get('/messages/:id', constroller.fetch));
+app.use(route.post('/messages', constroller.create));
 
 // Serve static files
 app.use(serve(path.join(__dirname, 'public')));
