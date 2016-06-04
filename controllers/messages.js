@@ -1,7 +1,7 @@
 'use strict';
 const views = require('co-views');
 const parse = require('co-body');
-const messages = [
+let messages = [
   { id: 0,
     message: 'Koa next generation web framework for node.js'
   },
@@ -15,7 +15,9 @@ const render = views(__dirname + '/../views', {
 });
 
 module.exports.home = function *home(ctx) {
-  this.body = yield render('list', { 'messages': messages });
+    let msgs = messages.slice();
+    msgs.reverse();
+  this.body = yield render('list', { 'messages': msgs });
 };
 
 module.exports.list = function *list() {
@@ -33,6 +35,7 @@ module.exports.fetch = function *fetch(id) {
 module.exports.create = function *create() {
   const message = yield parse(this);
   const id = messages.push(message) - 1;
+  messages.shift();
   message.id = id;
   this.redirect('/');
 };
