@@ -29,3 +29,12 @@ textarea {
   font: 30px helvetica;
   font-weight: 100;
 }
+
+#login_form {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    right: 30%;
+    bottom: 20%;
+    font-size: 18px;
+}

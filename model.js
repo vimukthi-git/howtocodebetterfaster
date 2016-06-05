@@ -9,6 +9,17 @@ let notices = [
   }
 ];
 
+let users = [
+  {
+    username: 'vimukthi',
+    password: '123'
+  },
+  {
+    username: 'other',
+    password: '123'
+  }
+];
+
 module.exports.list = function* list() {
   let nots = notices.slice();
   nots.reverse();
@@ -24,4 +35,13 @@ module.exports.create = function* create(message) {
   const id = notices.push(message) - 1;
   message.id = id;
   return message;
+};
+
+module.exports.getUserByUsername = function* getUserByUsername(username) {
+  for (let user of users) {
+    if (user.username === username) {
+      return user;
+    }
+  }
+  return false;
 };
