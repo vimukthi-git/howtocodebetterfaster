@@ -1,31 +1,25 @@
 'use strict';
 const views = require('co-views');
 const parse = require('co-body');
-let messages = [
-  { id: 0,
-    message: 'Koa next generation web framework for node.js'
-  },
-  { id: 1,
-    message: 'Koa is a new web framework designed by the team behind Express'
-  }
-];
+const model = require('./model');
 
 const render = views(__dirname + '/views', {
   map: { html: 'swig' }
 });
 
 module.exports.home = function *home(ctx) {
-    let msgs = messages.slice();
-    msgs.reverse();
-  this.body = yield render('list', { 'messages': msgs });
+  let nots = yield model.list();
+  this.body = yield render('list', {
+     'messages': nots
+   });
 };
 
 module.exports.list = function *list() {
-  this.body = yield messages;
+  this.body = yield model.list();
 };
 
 module.exports.fetch = function *fetch(id) {
-  const message = messages[id];
+  const message = yield model.getById(id);
   if (!message) {
     this.throw(404, 'message with id = ' + id + ' was not found');
   }
@@ -34,25 +28,6 @@ module.exports.fetch = function *fetch(id) {
 
 module.exports.create = function *create() {
   const message = yield parse(this);
-  const id = messages.push(message) - 1;
-  messages.shift();
-  message.id = id;
+  yield model.create(message);
   this.redirect('/');
-};
-
-const asyncOperation = () => callback =>
-  setTimeout(
-    () => callback(null, 'this was loaded asynchronously and it took 2 seconds to complete'),
-    2000);
-
-const returnsPromise = () =>
-  new Promise((resolve, reject) =>
-    setTimeout(() => resolve('promise resolved after 2 seconds'), 2000));
-
-module.exports.delay = function *delay() {
-  this.body = yield asyncOperation();
-};
-
-module.exports.promise = function *promise() {
-  this.body = yield returnsPromise();
 };
