@@ -8,12 +8,22 @@ const render = views(__dirname + '/../views', {
 });
 
 module.exports.loginPage = function *loginPage(ctx) {
-  this.body = yield render('login');
+  if(this.config.auth) {
+    this.body = yield render('login');
+  } else {
+    this.redirect('/home');
+  }
 };
 
 module.exports.login = function *login(ctx) {
   let posted = yield parse(this);
   let user = yield model.getUserByUsername(posted.username);
+
+  /**
+  * This is a BAD example of how to implement authentication.
+  * I do this just for the sake of keeping it simple for the presentation.
+  * Use https://github.com/rkusa/koa-passport or something else for actual apps
+  **/
   if (user && user.password === posted.password) {
     this.redirect('/home');
   } else {

@@ -1,0 +1,11 @@
+{
+  "local": {
+    "auth": false
+  },
+  "dev": {
+    "auth": true
+  },
+  "prod": {
+    "auth": true
+  }
+}
