@@ -8,7 +8,7 @@ const render = views(__dirname + '/../views', {
 });
 
 module.exports.home = function *home(ctx) {
-  let nots = yield model.list();
+  let nots = yield model.list(this.query.sort);
   this.body = yield render('list', {
      'messages': nots
    });

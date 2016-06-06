@@ -8,10 +8,12 @@ class Notice {
     this.message = message;
   }
 
-  static* list() {
-    let nots = notices.slice();
-    nots.reverse();
-    return nots;
+  static* list(sort) {
+    if(sort === 'alphabetical'){
+      return AlphabeticalSortStrategy.sort(notices);
+    } else {
+      return ReverseChronologicalSortStrategy.sort(notices);
+    }
   }
 
   static* getById(id) {
@@ -27,9 +29,37 @@ class Notice {
   }
 }
 
+class AlphabeticalSortStrategy {
+  static sort(notices) {
+    let nots = notices.slice();
+    nots.sort(function(a, b) {
+      var nameA = a.message.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.message.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    });
+    return nots;
+  }
+}
+
+class ReverseChronologicalSortStrategy {
+  static sort(notices) {
+    let nots = notices.slice();
+    nots.reverse();
+    return nots;
+  }
+}
+
 let notices = [
-  new Notice(0, 'Koa next generation web framework for node.js'),
-  new Notice(1, 'Koa is a new web framework designed by the team behind Express')
+  new Notice(0, 'A is first letter'),
+  new Notice(1, 'B is second letter')
 ];
 
 module.exports = Notice;
