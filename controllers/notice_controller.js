@@ -1,7 +1,7 @@
 'use strict';
 const views = require('co-views');
 const parse = require('co-body');
-const model = require('../models/notice_model');
+const model = require('../models/notice_file_model');
 
 const render = views(__dirname + '/../views', {
   map: { html: 'swig' }
