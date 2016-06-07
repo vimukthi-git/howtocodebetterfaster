@@ -1,5 +1,12 @@
 'use strict';
 
+const views = require('co-views');
+
+
+module.exports.Render = views(__dirname + '/views', {
+  map: { html: 'swig' }
+});
+
 class AlphabeticalSortStrategy {
   static sort(notices) {
     let nots = notices.slice();

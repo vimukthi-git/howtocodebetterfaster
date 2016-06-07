@@ -1,11 +1,8 @@
 'use strict';
-const views = require('co-views');
+
 const parse = require('co-body');
 const model = require('../models/notice_file_model');
-
-const render = views(__dirname + '/../views', {
-  map: { html: 'swig' }
-});
+const render = require('../utils').Render;
 
 module.exports.home = function *home(ctx) {
   let nots = yield model.list(this.query.sort);

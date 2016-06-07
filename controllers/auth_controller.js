@@ -1,11 +1,8 @@
 'use strict';
-const views = require('co-views');
+
 const parse = require('co-body');
 const model = require('../models/user_model');
-
-const render = views(__dirname + '/../views', {
-  map: { html: 'swig' }
-});
+const render = require('../utils').Render;
 
 module.exports.loginPage = function *loginPage(ctx) {
   if(this.config.auth) {
