@@ -1,10 +1,21 @@
 'use strict';
 
+const _usernameSymbol = Symbol('username');
+const _passwordSymbol = Symbol('password');
+
 // Can you notice a problem with reponsibilities of this class?
 class User {
   constructor(username, password) {
-    this.username = username;
-    this.password = password;
+    this[_usernameSymbol] = username;
+    this[_passwordSymbol] = password;
+  }
+
+  get username() {
+    return this[_usernameSymbol];
+  }
+
+  get password() {
+    return this[_passwordSymbol];
   }
 
   static* getUserByUsername(username) {
