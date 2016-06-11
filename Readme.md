@@ -1,12 +1,8 @@
-- Clone the repository https://github.com/vimukthi-git/howtcodebetterfaster/
-- This is using Koa framework http://koajs.com/ 
-- ‘npm install’
-- Run the app with ‘npm start’ and open ‘http://localhost:3000’
-- For a start checkout the branch ‘1_separate_concerns_bad’
-- Open the app in your IDE
-- Check the ‘app.js’, Seems the entire app is in one file now.
-- Let’s separate the concerns by following MVC. 
-- Extract the handlers and their dependencies into a ‘controllers.js’.
+- After we converted the app to MVC it was easier for us to add our user login feature.
+- Checkout the branch ‘3_single_responsibility_bad’, Run the app
+- Login user: ‘vimukthi’ pass: ‘123’
+- But seems our controller violates single responsibility
+- Let’s create a directory ‘controllers’ and add two new files ‘auth_controller.js’ and ‘notice_controller.js’
+- Move login related handlers and their dependencies to ‘auth_controller.js’ 
 
-
-Fully MVC version is in the branch ‘2_separate_concerns_good’
+Fully single responsibility version is in the branch ‘4_single_responsibility_good’
